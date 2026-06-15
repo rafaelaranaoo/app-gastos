@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AppShell from './components/AppShell';
@@ -10,40 +10,48 @@ import BudgetPage from './pages/BudgetPage';
 import NotFoundPage from './pages/NotFoundPage';
 import theme from './theme';
 
-function App() {
-  const [transactions, setTransactions] = useState(initialTransactions);
+const STORAGE_KEY = 'transactions';
 
-  const orderedTransactions = useMemo(() => {
-    return [...transactions].sort((left, right) => {
-      return new Date(right.date) - new Date(left.date);
-    });
-  }, [transactions]);
+function App() {
+  const savedTransactions = localStorage.getItem(STORAGE_KEY);
+  const startingTransactions = savedTransactions
+    ? JSON.parse(savedTransactions)
+    : initialTransactions;
+
+  const [transactions, setTransactions] = useState(startingTransactions);
+
+  function saveToLocalStorage(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
 
   function createTransaction(transaction) {
-    setTransactions((currentTransactions) => [
-      {
-        ...transaction,
-        id: Date.now()
-      },
-      ...currentTransactions
-    ]);
+    const newTransactions = [
+      { ...transaction, id: Date.now() },
+      ...transactions
+    ];
+    setTransactions(newTransactions);
+    saveToLocalStorage(newTransactions);
   }
 
   function updateTransaction(id, transaction) {
-    setTransactions((currentTransactions) =>
-      currentTransactions.map((currentTransaction) =>
-        currentTransaction.id === id
-          ? { ...transaction, id }
-          : currentTransaction
-      )
+    const newTransactions = transactions.map((currentTransaction) =>
+      currentTransaction.id === id ? { ...transaction, id } : currentTransaction
     );
+    setTransactions(newTransactions);
+    saveToLocalStorage(newTransactions);
   }
 
   function deleteTransaction(id) {
-    setTransactions((currentTransactions) =>
-      currentTransactions.filter((transaction) => transaction.id !== id)
+    const newTransactions = transactions.filter(
+      (transaction) => transaction.id !== id
     );
+    setTransactions(newTransactions);
+    saveToLocalStorage(newTransactions);
   }
+
+  const orderedTransactions = [...transactions].sort(
+    (left, right) => new Date(right.date) - new Date(left.date)
+  );
 
   function findTransaction(id) {
     return transactions.find((transaction) => transaction.id === Number(id));
