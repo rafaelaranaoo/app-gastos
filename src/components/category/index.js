@@ -1,6 +1,12 @@
 import { Box, LinearProgress, Paper, Stack, Typography } from '@mui/material'
 import { formatCurrency, groupExpensesByCategory } from '../../utils'
 
+/**
+ * Componente: CategoryBreakdown
+ * Descrição: Exibe distribuição de despesas por categoria com barras.
+ * @param {Object} props
+ * @param {Array} props.transactions
+ */
 function CategoryBreakdown({ transactions }) {
   const expensesByCategory = groupExpensesByCategory(transactions)
   const total = expensesByCategory.reduce((sum, item) => sum + item.amount, 0)

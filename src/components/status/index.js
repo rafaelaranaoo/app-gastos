@@ -7,6 +7,10 @@ import {
 } from '@mui/material'
 import { transactionStatus } from '../../data/transacoes'
 
+/**
+ * Componente: Status
+ * Descrição: Select para o status da transação (Pago, Pendente, etc.).
+ */
 function Status({ value, onChange, error }) {
   return (
     <FormControl fullWidth error={Boolean(error)}>

@@ -1,6 +1,10 @@
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
+/**
+ * Componente: Menu
+ * Descrição: Item de navegação usado dentro da lista do menu lateral.
+ */
 function Menu({ item, onClick }) {
   return (
     <ListItemButton

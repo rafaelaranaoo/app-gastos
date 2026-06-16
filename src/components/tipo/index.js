@@ -6,6 +6,12 @@ import { Box } from '@mui/material'
 import { calculateTotals, formatCurrency } from '../../utils'
 import StatCard from '../stat'
 
+/**
+ * Componente: TipoContabil
+ * Descrição: Painel com cards de resumo (Receitas, Despesas, Saldo, Pendências).
+ * @param {Object} props
+ * @param {Array} props.transactions
+ */
 function TipoContabil({ transactions }) {
   const totals = calculateTotals(transactions)
 

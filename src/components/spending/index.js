@@ -1,6 +1,12 @@
 import { Box, Paper, Stack, Typography } from '@mui/material'
 import { formatCurrency, groupExpensesByCategory } from '../../utils'
 
+/**
+ * Componente: SpendingChart
+ * Descrição: Gráfico/visualização simples de despesas por categoria.
+ * @param {Object} props
+ * @param {Array} props.transactions
+ */
 function SpendingChart({ transactions }) {
   const expensesByCategory = groupExpensesByCategory(transactions).slice(0, 6)
   const maxAmount = Math.max(

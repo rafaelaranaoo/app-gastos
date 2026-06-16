@@ -10,6 +10,10 @@ import {
 } from '@mui/material'
 import { calculateTotals, formatCurrency } from '../../utils'
 
+/**
+ * Componente: Topbar
+ * Descrição: Barra superior fixa com saldo atual e controle de menu.
+ */
 function Topbar({ drawerWidth, onMenuClick, transactions }) {
   const totals = calculateTotals(transactions)
 

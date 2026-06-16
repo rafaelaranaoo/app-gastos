@@ -4,6 +4,12 @@ import CategoryBreakdown from '../components/category'
 import PageHeader from '../components/page'
 import TipsPanel from '../components/tips'
 
+/**
+ * Componente: PaginaOrcamento
+ * Descrição: Página com visão de orçamento por categoria.
+ * @param {Object} props
+ * @param {Array} props.transactions
+ */
 function PaginaOrcamento({ transactions }) {
   return (
     <>

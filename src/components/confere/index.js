@@ -2,6 +2,10 @@ import InboxIcon from '@mui/icons-material/Inbox'
 import { Button, Paper, Stack, Typography } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 
+/**
+ * Componente: ConfereEstado
+ * Descrição: Estado vazio (empty state) exibido quando não há lançamentos.
+ */
 function ConfereEstado() {
   return (
     <Paper

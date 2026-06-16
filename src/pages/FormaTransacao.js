@@ -3,6 +3,13 @@ import PageHeader from '../components/page'
 import Formulario from '../components/formulario'
 import PaginaErro from './paginaErro'
 
+/**
+ * Componente: FormaTransacao
+ * Descrição: Página para criar ou editar transações, usa `Formulario`.
+ * @param {Object} props
+ * @param {Function} props.onSave
+ * @param {Function} [props.findTransaction]
+ */
 function FormaTransacao({ onSave, findTransaction }) {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -13,6 +20,11 @@ function FormaTransacao({ onSave, findTransaction }) {
     return <PaginaErro />
   }
 
+  /**
+   * Função: handleSubmit
+   * Descrição: Trata envio do formulário, cria ou atualiza transação.
+   * @param {Object} formData
+   */
   function handleSubmit(formData) {
     if (isEditing) {
       onSave(Number(id), formData)

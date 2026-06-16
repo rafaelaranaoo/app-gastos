@@ -2,6 +2,10 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb'
 import { Avatar, Paper, Stack, Typography } from '@mui/material'
 import { calculateTotals, formatCurrency } from '../../utils'
 
+/**
+ * Componente: TipsPanel
+ * Descrição: Painel resumido com indicadores do mês e dicas.
+ */
 function TipsPanel({ transactions }) {
   const totals = calculateTotals(transactions)
   const savingRate =

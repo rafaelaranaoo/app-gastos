@@ -7,6 +7,10 @@ import {
 } from '@mui/material'
 import { paymentMethods } from '../../data/transacoes'
 
+/**
+ * Componente: MeioPagamento
+ * Descrição: Select para escolha da forma de pagamento.
+ */
 function MeioPagamento({ value, onChange, error }) {
   return (
     <FormControl fullWidth error={Boolean(error)}>

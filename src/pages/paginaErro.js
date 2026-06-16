@@ -2,6 +2,10 @@ import HomeIcon from '@mui/icons-material/Home'
 import { Button, Paper, Stack, Typography } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 
+/**
+ * Componente: PaginaErro
+ * Descrição: Exibe página de erro 404 quando rota não é encontrada.
+ */
 function PaginaErro() {
   return (
     <Paper

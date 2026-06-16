@@ -1,4 +1,4 @@
-import AddCardIcon from '@mui/icons-material/AddCard'
+﻿import AddCardIcon from '@mui/icons-material/AddCard'
 import { Button } from '@mui/material'
 import { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
@@ -6,9 +6,19 @@ import ExcluirTransacao from '../components/excluir'
 import PageHeader from '../components/page'
 import Tabela from '../components/tabela'
 
+/**
+ * Componente: PaginaTransacao
+ * DescriÃ§Ã£o: Lista de transaÃ§Ãµes com opÃ§Ã£o de exclusÃ£o.
+ * @param {Object} props
+ * @param {Array} props.transactions
+ * @param {Function} props.onDelete
+ */
 function PaginaTransacao({ transactions, onDelete }) {
   const [selectedTransaction, setSelectedTransaction] = useState(null)
 
+  /**
+   * Fecha o modal de confirmacao de exclusao e limpa a transacao selecionada.
+   */
   function handleCloseModal() {
     setSelectedTransaction(null)
   }
@@ -16,7 +26,7 @@ function PaginaTransacao({ transactions, onDelete }) {
   return (
     <>
       <PageHeader
-        title="Lançamentos"
+        title="LanÃ§amentos"
         subtitle="Receitas e despesas cadastradas"
         action={
           <Button
@@ -25,7 +35,7 @@ function PaginaTransacao({ transactions, onDelete }) {
             variant="contained"
             startIcon={<AddCardIcon />}
           >
-            Novo lançamento
+            Novo lanÃ§amento
           </Button>
         }
       />

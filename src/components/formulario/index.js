@@ -20,6 +20,10 @@ const emptyTransaction = {
   notes: ''
 }
 
+/**
+ * Componente: Formulario
+ * Descrição: Formulário de criação/edição de transações.
+ */
 function Formulario({ initialValues, onSubmit, submitLabel }) {
   const [formData, setFormData] = useState({
     ...emptyTransaction,
@@ -27,6 +31,10 @@ function Formulario({ initialValues, onSubmit, submitLabel }) {
   })
   const [errors, setErrors] = useState({})
 
+  /**
+   * Função: updateField
+   * Descrição: Atualiza um campo específico do formulário.
+   */
   function updateField(name, value) {
     setFormData((currentData) => ({
       ...currentData,
@@ -34,11 +42,19 @@ function Formulario({ initialValues, onSubmit, submitLabel }) {
     }))
   }
 
+  /**
+   * Função: handleChange
+   * Descrição: Manipulador genérico para inputs controlados.
+   */
   function handleChange(event) {
     const { name, value } = event.target
     updateField(name, value)
   }
 
+  /**
+   * Função: handleTypeChange
+   * Descrição: Atualiza campos dependentes ao mudar o tipo (Receita/Despesa).
+   */
   function handleTypeChange(type) {
     setFormData((currentData) => ({
       ...currentData,
@@ -48,6 +64,10 @@ function Formulario({ initialValues, onSubmit, submitLabel }) {
     }))
   }
 
+  /**
+   * Função: validate
+   * Descrição: Valida os campos do formulário e retorna objeto de erros.
+   */
   function validate() {
     const nextErrors = {}
 
@@ -70,6 +90,10 @@ function Formulario({ initialValues, onSubmit, submitLabel }) {
     return nextErrors
   }
 
+  /**
+   * Função: handleSubmit
+   * Descrição: Trata o envio do formulário, valida e chama `onSubmit`.
+   */
   function handleSubmit(event) {
     event.preventDefault()
     const validationErrors = validate()
