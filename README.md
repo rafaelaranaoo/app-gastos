@@ -1,16 +1,16 @@
 # Controle de Gastos Pessoais
 
-Interface React de um CRUD para controle de gastos pessoais. O projeto foi criado sem Vite e sem Vue, usando React com `react-scripts`, Material UI para o layout de dashboard e React-Bootstrap para o modal de confirmação.
+Interface React de um CRUD simples para controle de gastos pessoais. O projeto foi usando React com `react-scripts`, Material UI para a interface e React-Bootstrap para o modal de exclusao.
 
-## Como rodar
+## Como Rodar
 
-1. Instale as dependências:
+1. Instale as dependencias:
 
 ```bash
 npm install
 ```
 
-2. Inicie a aplicação:
+2. Inicie a aplicacao:
 
 ```bash
 npm start
@@ -22,7 +22,7 @@ npm start
 http://localhost:3000
 ```
 
-Também é possível validar a versão de produção:
+Tambem e possivel validar a versao de producao:
 
 ```bash
 npm run build
@@ -33,16 +33,14 @@ npm run preview
 
 - `/#/` - dashboard
 - `/#/lancamentos` - listagem do CRUD
-- `/#/lancamentos/novo` - formulário componentizado
-- `/#/lancamentos/:id/editar` - edição de lançamento
-- `/#/orcamento` - orçamento por categoria
+- `/#/lancamentos/novo` - formulario de cadastro
+- `/#/lancamentos/:id/editar` - formulario de edicao
 
-## Bibliotecas usadas
+## Bibliotecas Usadas
 
 - React
 - React Router DOM
 - Material UI
 - React-Bootstrap
 - Bootstrap
-
 

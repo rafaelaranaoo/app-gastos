@@ -1,63 +1,46 @@
 import AddCardIcon from '@mui/icons-material/AddCard'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
-import CategoryBreakdown from '../components/category'
-import PageHeader from '../components/page'
-import SpendingChart from '../components/spending'
-import TipoContabil from '../components/tipo'
-import TipsPanel from '../components/tips'
-import Tabela from '../components/tabela'
+import CabecalhoPagina from '../components/cabecalhoPagina'
+import CardResumo from '../components/cardResumo'
+import TabelaLancamentos from '../components/tabelaLancamentos'
+import { calcularResumo, formatarMoeda } from '../utils'
 
-/**
- * Componente: PaginaDashboard
- * Descrição: Página principal com resumo das transações, gráficos e tabelas.
- * @param {Object} props
- * @param {Array} props.transactions - Lista de transações
- */
-function PaginaDashboard({ transactions }) {
-  const recentTransactions = transactions.slice(0, 5)
+// Serve para mostrar o resumo inicial do sistema.
+function PaginaDashboard({ transacoes }) {
+  const resumo = calcularResumo(transacoes)
+  const ultimasTransacoes = transacoes.slice(0, 5)
 
   return (
     <>
-      <PageHeader
-        title="Dashboard"
-        subtitle="Resumo dos lançamentos cadastrados"
-        action={
+      <CabecalhoPagina
+        titulo="Dashboard"
+        subtitulo="Resumo simples dos seus gastos"
+        acao={
           <Button
             component={RouterLink}
             to="/lancamentos/novo"
             variant="contained"
             startIcon={<AddCardIcon />}
           >
-            Novo lançamento
+            Novo lancamento
           </Button>
         }
       />
-      <TipoContabil transactions={transactions} />
       <Box
         sx={{
           display: 'grid',
           gap: 2,
-          gridTemplateColumns: { xs: '1fr', lg: '1.6fr 1fr' },
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(4, 1fr)' },
           mb: 3
         }}
       >
-        <SpendingChart transactions={transactions} />
-        <CategoryBreakdown transactions={transactions} />
+        <CardResumo titulo="Receitas" valor={formatarMoeda(resumo.receitas)} cor="success.main" />
+        <CardResumo titulo="Despesas" valor={formatarMoeda(resumo.despesas)} cor="secondary.main" />
+        <CardResumo titulo="Saldo" valor={formatarMoeda(resumo.saldo)} />
+        <CardResumo titulo="Lancamentos" valor={resumo.totalLancamentos} />
       </Box>
-      <Stack spacing={2}>
-        <TipsPanel transactions={transactions} />
-        <Box>
-          <Typography variant="h6" sx={{ mb: 1.5 }}>
-            Lançamentos recentes
-          </Typography>
-          <Tabela
-            transactions={recentTransactions}
-            hideActions
-            compact
-          />
-        </Box>
-      </Stack>
+      <TabelaLancamentos transacoes={ultimasTransacoes} esconderAcoes />
     </>
   )
 }

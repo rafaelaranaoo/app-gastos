@@ -1,82 +1,38 @@
-/**
- * Formatter de moeda para pt-BR (BRL)
- * Usado por `formatCurrency` para formatar números.
- */
-export const currencyFormatter = new Intl.NumberFormat('pt-BR', {
+// Serve para formatar valores em reais.
+export const formatadorMoeda = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL'
 })
 
-/**
- * Função: formatCurrency
- * Descrição: Converte um valor numérico em string formatada como moeda BRL.
- * @param {number|string} value - Valor a ser formatado
- * @returns {string} Valor formatado como moeda
- */
-export function formatCurrency(value) {
-  return currencyFormatter.format(Number(value || 0))
+// Serve para transformar numero em moeda brasileira.
+export function formatarMoeda(valor) {
+  return formatadorMoeda.format(Number(valor || 0))
 }
 
-/**
- * Função: formatDate
- * Descrição: Formata uma data no formato ISO (YYYY-MM-DD) para DD/MM/YYYY.
- * @param {string} value - Data em formato YYYY-MM-DD
- * @returns {string} Data formatada para exibição
- */
-export function formatDate(value) {
-  if (!value) {
+// Serve para mostrar a data no formato dia/mes/ano.
+export function formatarData(valor) {
+  if (!valor) {
     return ''
   }
 
-  const [year, month, day] = value.split('-')
-  return `${day}/${month}/${year}`
+  const [ano, mes, dia] = valor.split('-')
+  return `${dia}/${mes}/${ano}`
 }
 
-/**
- * Função: calculateTotals
- * Descrição: Calcula totais de receitas, despesas, pendentes e saldo.
- * @param {Array} transactions - Lista de transações
- * @returns {{income:number,expenses:number,pending:number,balance:number}}
- */
-export function calculateTotals(transactions) {
-  const income = transactions
-    .filter((transaction) => transaction.type === 'Receita')
-    .reduce((total, transaction) => total + Number(transaction.amount), 0)
+// Serve para calcular receitas, despesas e saldo.
+export function calcularResumo(transacoes) {
+  const receitas = transacoes
+    .filter((transacao) => transacao.tipo === 'Receita')
+    .reduce((total, transacao) => total + Number(transacao.valor), 0)
 
-  const expenses = transactions
-    .filter((transaction) => transaction.type === 'Despesa')
-    .reduce((total, transaction) => total + Number(transaction.amount), 0)
-
-  const pending = transactions
-    .filter((transaction) => transaction.status === 'Pendente')
-    .reduce((total, transaction) => total + Number(transaction.amount), 0)
+  const despesas = transacoes
+    .filter((transacao) => transacao.tipo === 'Despesa')
+    .reduce((total, transacao) => total + Number(transacao.valor), 0)
 
   return {
-    income,
-    expenses,
-    pending,
-    balance: income - expenses
+    receitas,
+    despesas,
+    saldo: receitas - despesas,
+    totalLancamentos: transacoes.length
   }
-}
-
-/**
- * Função: groupExpensesByCategory
- * Descrição: Agrupa despesas por categoria e retorna lista ordenada por valor.
- * @param {Array} transactions - Lista de transações
- * @returns {Array<{category:string,amount:number}>}
- */
-export function groupExpensesByCategory(transactions) {
-  const grouped = transactions
-    .filter((transaction) => transaction.type === 'Despesa')
-    .reduce((result, transaction) => {
-      const current = result[transaction.category] || 0
-      return {
-        ...result,
-        [transaction.category]: current + Number(transaction.amount)
-      }
-    }, {})
-
-  return Object.entries(grouped)
-    .map(([category, amount]) => ({ category, amount }))
-    .sort((left, right) => right.amount - left.amount)
 }

@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles'
 
+// Serve para definir cores e estilos padrao do Material UI.
 const theme = createTheme({
   palette: {
     mode: 'light',
