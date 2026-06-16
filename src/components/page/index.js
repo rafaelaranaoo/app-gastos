@@ -1,5 +1,9 @@
 import { Box, Stack, Typography } from '@mui/material'
 
+/**
+ * Componente: PageHeader
+ * Descrição: Cabeçalho de página com título, subtítulo e ação opcional.
+ */
 function PageHeader({ title, subtitle, action }) {
   return (
     <Stack

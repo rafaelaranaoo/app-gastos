@@ -36,6 +36,10 @@ const navigation = [
   }
 ]
 
+/**
+ * Componente: MenuLateral
+ * Descrição: Painel lateral de navegação (drawer) responsivo.
+ */
 function MenuLateral({ drawerWidth, mobileOpen, onDrawerToggle }) {
   const drawerContent = (
     <Stack sx={{ height: '100%' }}>

@@ -1,5 +1,9 @@
 import { Avatar, Box, Paper, Stack, Typography } from '@mui/material'
 
+/**
+ * Componente: StatCard
+ * Descrição: Mostra um card de estatística com título, valor e ícone.
+ */
 function StatCard({ title, value, icon, color = 'primary.main', helper }) {
   return (
     <Paper

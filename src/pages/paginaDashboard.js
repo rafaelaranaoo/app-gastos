@@ -8,6 +8,12 @@ import TipoContabil from '../components/tipo'
 import TipsPanel from '../components/tips'
 import Tabela from '../components/tabela'
 
+/**
+ * Componente: PaginaDashboard
+ * Descrição: Página principal com resumo das transações, gráficos e tabelas.
+ * @param {Object} props
+ * @param {Array} props.transactions - Lista de transações
+ */
 function PaginaDashboard({ transactions }) {
   const recentTransactions = transactions.slice(0, 5)
 

@@ -10,6 +10,10 @@ import {
 import ConfereEstado from '../confere'
 import TransactionRow from '../transaction'
 
+/**
+ * Componente: Tabela
+ * Descrição: Exibe transações em tabela e trata estado vazio.
+ */
 function Tabela({
   transactions,
   onRequestDelete,

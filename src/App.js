@@ -12,6 +12,10 @@ import theme from './tema'
 
 const STORAGE_KEY = 'transactions'
 
+/**
+ * Componente raiz da aplicação
+ * Gerencia o estado de `transactions` e rotas da aplicação.
+ */
 function App() {
   const savedTransactions = localStorage.getItem(STORAGE_KEY)
   const startingTransactions = savedTransactions
@@ -20,10 +24,20 @@ function App() {
 
   const [transactions, setTransactions] = useState(startingTransactions)
 
+  /**
+   * Função: saveToLocalStorage
+   * Descrição: Persiste a lista de transações no `localStorage`.
+   * @param {Array} data - Lista de transações
+   */
   function saveToLocalStorage(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   }
 
+  /**
+   * Função: createTransaction
+   * Descrição: Cria uma nova transação e persiste o estado.
+   * @param {Object} transaction - Objeto de transação a ser adicionado
+   */
   function createTransaction(transaction) {
     const newTransactions = [
       { ...transaction, id: Date.now() },
@@ -33,6 +47,12 @@ function App() {
     saveToLocalStorage(newTransactions)
   }
 
+  /**
+   * Função: updateTransaction
+   * Descrição: Atualiza uma transação existente por `id`.
+   * @param {number|string} id - Identificador da transação
+   * @param {Object} transaction - Novos dados da transação
+   */
   function updateTransaction(id, transaction) {
     const newTransactions = transactions.map((currentTransaction) =>
       currentTransaction.id === id ? { ...transaction, id } : currentTransaction
@@ -41,6 +61,11 @@ function App() {
     saveToLocalStorage(newTransactions)
   }
 
+  /**
+   * Função: deleteTransaction
+   * Descrição: Remove uma transação pelo `id`.
+   * @param {number|string} id - Identificador da transação a remover
+   */
   function deleteTransaction(id) {
     const newTransactions = transactions.filter(
       (transaction) => transaction.id !== id
@@ -53,6 +78,12 @@ function App() {
     (left, right) => new Date(right.date) - new Date(left.date)
   )
 
+  /**
+   * Função: findTransaction
+   * Descrição: Encontra uma transação pelo `id`.
+   * @param {number|string} id - Identificador da transação
+   * @returns {Object|undefined} Transação encontrada ou `undefined`
+   */
   function findTransaction(id) {
     return transactions.find((transaction) => transaction.id === Number(id))
   }

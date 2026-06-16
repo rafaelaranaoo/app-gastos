@@ -1,12 +1,28 @@
+/**
+ * Formatter de moeda para pt-BR (BRL)
+ * Usado por `formatCurrency` para formatar números.
+ */
 export const currencyFormatter = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL'
 })
 
+/**
+ * Função: formatCurrency
+ * Descrição: Converte um valor numérico em string formatada como moeda BRL.
+ * @param {number|string} value - Valor a ser formatado
+ * @returns {string} Valor formatado como moeda
+ */
 export function formatCurrency(value) {
   return currencyFormatter.format(Number(value || 0))
 }
 
+/**
+ * Função: formatDate
+ * Descrição: Formata uma data no formato ISO (YYYY-MM-DD) para DD/MM/YYYY.
+ * @param {string} value - Data em formato YYYY-MM-DD
+ * @returns {string} Data formatada para exibição
+ */
 export function formatDate(value) {
   if (!value) {
     return ''
@@ -16,6 +32,12 @@ export function formatDate(value) {
   return `${day}/${month}/${year}`
 }
 
+/**
+ * Função: calculateTotals
+ * Descrição: Calcula totais de receitas, despesas, pendentes e saldo.
+ * @param {Array} transactions - Lista de transações
+ * @returns {{income:number,expenses:number,pending:number,balance:number}}
+ */
 export function calculateTotals(transactions) {
   const income = transactions
     .filter((transaction) => transaction.type === 'Receita')
@@ -37,6 +59,12 @@ export function calculateTotals(transactions) {
   }
 }
 
+/**
+ * Função: groupExpensesByCategory
+ * Descrição: Agrupa despesas por categoria e retorna lista ordenada por valor.
+ * @param {Array} transactions - Lista de transações
+ * @returns {Array<{category:string,amount:number}>}
+ */
 export function groupExpensesByCategory(transactions) {
   const grouped = transactions
     .filter((transaction) => transaction.type === 'Despesa')

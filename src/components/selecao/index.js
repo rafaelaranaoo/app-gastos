@@ -7,6 +7,10 @@ import {
 } from '@mui/material'
 import { categories } from '../../data/transacoes'
 
+/**
+ * Componente: SelecaoCategoria
+ * Descrição: Select para escolher a categoria da transação.
+ */
 function SelecaoCategoria({ value, onChange, error, disabled }) {
   return (
     <FormControl fullWidth error={Boolean(error)} disabled={disabled}>

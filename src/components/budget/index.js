@@ -10,6 +10,12 @@ const monthlyBudgets = {
   Lazer: 400
 }
 
+/**
+ * Componente: BudgetProgress
+ * Descrição: Mostra progresso do orçamento mensal por categoria.
+ * @param {Object} props
+ * @param {Array} props.transactions
+ */
 function BudgetProgress({ transactions }) {
   const expensesByCategory = groupExpensesByCategory(transactions)
 

@@ -5,9 +5,16 @@ import Topbar from '../topbar'
 
 const drawerWidth = 260
 
+/**
+ * Componente: AppShell
+ * Descrição: Estrutura de layout da aplicação com `Topbar` e `MenuLateral`.
+ */
 function AppShell({ children, transactions }) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
+  /**
+   * Alterna a abertura do menu lateral em telas menores.
+   */
   function handleDrawerToggle() {
     setMobileOpen((currentValue) => !currentValue)
   }

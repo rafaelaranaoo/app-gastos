@@ -1,5 +1,9 @@
 import { TextField } from '@mui/material'
 
+/**
+ * Componente: TopicosFormulario
+ * Descrição: Campo de texto reutilizável para formulários.
+ */
 function TopicosFormulario({ label, name, value, onChange, error, helperText, ...props }) {
   return (
     <TextField

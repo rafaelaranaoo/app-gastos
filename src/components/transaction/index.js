@@ -18,6 +18,14 @@ const statusColors = {
   Pendente: 'warning'
 }
 
+/**
+ * Componente: TransactionRow
+ * Descrição: Linha da tabela representando uma transação.
+ * @param {Object} props
+ * @param {Object} props.transaction
+ * @param {Function} props.onRequestDelete
+ * @param {boolean} props.hideActions
+ */
 function TransactionRow({ transaction, onRequestDelete, hideActions }) {
   const amountColor =
     transaction.type === 'Receita' ? 'success.main' : 'secondary.main'

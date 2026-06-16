@@ -1,7 +1,15 @@
 import { Button as BootstrapButton, Modal } from 'react-bootstrap'
 import { formatCurrency } from '../../utils'
 
+/**
+ * Componente: ExcluirTransacao
+ * Descrição: Modal para confirmar exclusão de transação.
+ */
 function ExcluirTransacao({ show, transaction, onHide, onConfirm }) {
+  /**
+   * Função: handleConfirm
+   * Descrição: Chama a ação de exclusão e fecha o modal.
+   */
   function handleConfirm() {
     if (transaction) {
       onConfirm(transaction.id)
