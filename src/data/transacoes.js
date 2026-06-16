@@ -1,93 +1,61 @@
-export const transactionTypes = ['Despesa', 'Receita']
+// Serve para preencher as opcoes do formulario.
+export const tipos = ['Despesa', 'Receita']
 
-export const categories = [
-  'Alimentação',
+export const categorias = [
+  'Alimentacao',
   'Moradia',
   'Transporte',
-  'Educação',
-  'Saúde',
+  'Educacao',
+  'Saude',
   'Lazer',
-  'Investimentos',
   'Receita'
 ]
 
-export const paymentMethods = [
+export const formasPagamento = [
   'Pix',
-  'Cartão de débito',
-  'Cartão de crédito',
+  'Cartao de debito',
+  'Cartao de credito',
   'Dinheiro',
-  'Transferência'
+  'Transferencia'
 ]
 
-export const transactionStatus = ['Pago', 'Pendente', 'Recebido']
+export const statusTransacao = ['Pago', 'Pendente', 'Recebido']
 
-const initialTransactions = [
+// Serve como dados iniciais para o primeiro acesso.
+const transacoesIniciais = [
   {
     id: 1,
-    description: 'Salário mensal',
-    type: 'Receita',
-    category: 'Receita',
-    amount: 5200,
-    date: '2026-06-05',
-    paymentMethod: 'Transferência',
+    descricao: 'Salario mensal',
+    tipo: 'Receita',
+    categoria: 'Receita',
+    valor: 5200,
+    data: '2026-06-05',
+    formaPagamento: 'Transferencia',
     status: 'Recebido',
-    notes: 'Pagamento principal do mês'
+    observacoes: 'Pagamento principal do mes'
   },
   {
     id: 2,
-    description: 'Aluguel',
-    type: 'Despesa',
-    category: 'Moradia',
-    amount: 1650,
-    date: '2026-06-06',
-    paymentMethod: 'Pix',
+    descricao: 'Aluguel',
+    tipo: 'Despesa',
+    categoria: 'Moradia',
+    valor: 1650,
+    data: '2026-06-06',
+    formaPagamento: 'Pix',
     status: 'Pago',
-    notes: 'Contrato residencial'
+    observacoes: 'Contrato residencial'
   },
   {
     id: 3,
-    description: 'Supermercado',
-    type: 'Despesa',
-    category: 'Alimentação',
-    amount: 438.9,
-    date: '2026-06-08',
-    paymentMethod: 'Cartão de débito',
+    descricao: 'Supermercado',
+    tipo: 'Despesa',
+    categoria: 'Alimentacao',
+    valor: 438.9,
+    data: '2026-06-08',
+    formaPagamento: 'Cartao de debito',
     status: 'Pago',
-    notes: 'Compras da semana'
-  },
-  {
-    id: 4,
-    description: 'Curso online',
-    type: 'Despesa',
-    category: 'Educação',
-    amount: 189.9,
-    date: '2026-06-09',
-    paymentMethod: 'Cartão de crédito',
-    status: 'Pendente',
-    notes: 'Parcela única'
-  },
-  {
-    id: 5,
-    description: 'Transporte por aplicativo',
-    type: 'Despesa',
-    category: 'Transporte',
-    amount: 76.4,
-    date: '2026-06-10',
-    paymentMethod: 'Cartão de crédito',
-    status: 'Pago',
-    notes: 'Deslocamentos da semana'
-  },
-  {
-    id: 6,
-    description: 'Freelance design',
-    type: 'Receita',
-    category: 'Receita',
-    amount: 820,
-    date: '2026-06-11',
-    paymentMethod: 'Pix',
-    status: 'Recebido',
-    notes: 'Projeto de identidade visual'
+    observacoes: 'Compras da semana'
   }
 ]
 
-export default initialTransactions
+export default transacoesIniciais

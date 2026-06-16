@@ -1,133 +1,101 @@
 import { useState } from 'react'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
-import AppShell from './components/app'
-import initialTransactions from './data/transacoes'
+import Layout from './components/layout'
+import transacoesIniciais from './data/transacoes'
 import PaginaDashboard from './pages/paginaDashboard'
-import PaginaTransacao from './pages/paginaTransacao'
-import FormaTransacao from './pages/FormaTransacao'
-import PaginaOrcamento from './pages/paginaOrcamento'
 import PaginaErro from './pages/paginaErro'
-import theme from './tema'
+import PaginaFormulario from './pages/PaginaFormulario'
+import PaginaLancamentos from './pages/PaginaLancamentos'
+import tema from './tema'
 
-const STORAGE_KEY = 'transactions'
+// Serve para identificar onde os dados ficam salvos no navegador.
+const STORAGE_KEY = 'transacoes'
 
-/**
- * Componente raiz da aplicação
- * Gerencia o estado de `transactions` e rotas da aplicação.
- */
+// Serve para carregar dados salvos ou usar os dados iniciais.
+function carregarTransacoes() {
+  const salvas = localStorage.getItem(STORAGE_KEY)
+  return salvas ? JSON.parse(salvas) : transacoesIniciais
+}
+
+// Serve como componente principal da aplicacao.
 function App() {
-  const savedTransactions = localStorage.getItem(STORAGE_KEY)
-  const startingTransactions = savedTransactions
-    ? JSON.parse(savedTransactions)
-    : initialTransactions
+  const [transacoes, setTransacoes] = useState(carregarTransacoes)
 
-  const [transactions, setTransactions] = useState(startingTransactions)
-
-  /**
-   * Função: saveToLocalStorage
-   * Descrição: Persiste a lista de transações no `localStorage`.
-   * @param {Array} data - Lista de transações
-   */
-  function saveToLocalStorage(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+  // Serve para atualizar a tela e salvar no localStorage.
+  function salvarTransacoes(novaLista) {
+    setTransacoes(novaLista)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(novaLista))
   }
 
-  /**
-   * Função: createTransaction
-   * Descrição: Cria uma nova transação e persiste o estado.
-   * @param {Object} transaction - Objeto de transação a ser adicionado
-   */
-  function createTransaction(transaction) {
-    const newTransactions = [
-      { ...transaction, id: Date.now() },
-      ...transactions
-    ]
-    setTransactions(newTransactions)
-    saveToLocalStorage(newTransactions)
+  // Serve para cadastrar um novo lancamento.
+  function criarTransacao(transacao) {
+    const novaLista = [{ ...transacao, id: Date.now() }, ...transacoes]
+    salvarTransacoes(novaLista)
   }
 
-  /**
-   * Função: updateTransaction
-   * Descrição: Atualiza uma transação existente por `id`.
-   * @param {number|string} id - Identificador da transação
-   * @param {Object} transaction - Novos dados da transação
-   */
-  function updateTransaction(id, transaction) {
-    const newTransactions = transactions.map((currentTransaction) =>
-      currentTransaction.id === id ? { ...transaction, id } : currentTransaction
+  // Serve para editar um lancamento existente.
+  function editarTransacao(id, transacaoEditada) {
+    const novaLista = transacoes.map((transacao) =>
+      transacao.id === Number(id)
+        ? { ...transacaoEditada, id: Number(id) }
+        : transacao
     )
-    setTransactions(newTransactions)
-    saveToLocalStorage(newTransactions)
+    salvarTransacoes(novaLista)
   }
 
-  /**
-   * Função: deleteTransaction
-   * Descrição: Remove uma transação pelo `id`.
-   * @param {number|string} id - Identificador da transação a remover
-   */
-  function deleteTransaction(id) {
-    const newTransactions = transactions.filter(
-      (transaction) => transaction.id !== id
-    )
-    setTransactions(newTransactions)
-    saveToLocalStorage(newTransactions)
+  // Serve para excluir um lancamento.
+  function excluirTransacao(id) {
+    const novaLista = transacoes.filter((transacao) => transacao.id !== id)
+    salvarTransacoes(novaLista)
   }
 
-  const orderedTransactions = [...transactions].sort(
-    (left, right) => new Date(right.date) - new Date(left.date)
+  // Serve para encontrar um lancamento pelo id.
+  function buscarTransacao(id) {
+    return transacoes.find((transacao) => transacao.id === Number(id))
+  }
+
+  // Serve para mostrar os lancamentos mais recentes primeiro.
+  const transacoesOrdenadas = [...transacoes].sort(
+    (a, b) => new Date(b.data) - new Date(a.data)
   )
 
-  /**
-   * Função: findTransaction
-   * Descrição: Encontra uma transação pelo `id`.
-   * @param {number|string} id - Identificador da transação
-   * @returns {Object|undefined} Transação encontrada ou `undefined`
-   */
-  function findTransaction(id) {
-    return transactions.find((transaction) => transaction.id === Number(id))
-  }
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={tema}>
       <CssBaseline />
       <HashRouter>
-        <AppShell transactions={transactions}>
+        <Layout transacoes={transacoesOrdenadas}>
           <Routes>
             <Route
               path="/"
-              element={<PaginaDashboard transactions={orderedTransactions} />}
+              element={<PaginaDashboard transacoes={transacoesOrdenadas} />}
             />
             <Route
               path="/lancamentos"
               element={
-                <PaginaTransacao
-                  transactions={orderedTransactions}
-                  onDelete={deleteTransaction}
+                <PaginaLancamentos
+                  transacoes={transacoesOrdenadas}
+                  aoExcluir={excluirTransacao}
                 />
               }
             />
             <Route
               path="/lancamentos/novo"
-              element={<FormaTransacao onSave={createTransaction} />}
+              element={<PaginaFormulario aoSalvar={criarTransacao} />}
             />
             <Route
               path="/lancamentos/:id/editar"
               element={
-                <FormaTransacao
-                  onSave={updateTransaction}
-                  findTransaction={findTransaction}
+                <PaginaFormulario
+                  aoSalvar={editarTransacao}
+                  buscarTransacao={buscarTransacao}
                 />
               }
-            />
-            <Route
-              path="/orcamento"
-              element={<PaginaOrcamento transactions={orderedTransactions} />}
             />
             <Route path="/404" element={<PaginaErro />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
-        </AppShell>
+        </Layout>
       </HashRouter>
     </ThemeProvider>
   )
